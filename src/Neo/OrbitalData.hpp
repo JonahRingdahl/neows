@@ -4,12 +4,10 @@
 
 using json = nlohmann::json;
 
-class OrbitalData {
-public:
+struct OrbitalData {
   OrbitalData(json data);
   ~OrbitalData();
 
-private:
   uint orbital_id;
   std::string orbit_determination_date;
   std::string first_observation_date;
@@ -20,7 +18,7 @@ private:
   double minimum_orbit_intersection;
   double jupiter_tisserand_invariant;
   double epoch_occultation;
-  double eccentrisity;
+  double eccentricity;
   double semi_major_axis;
   double inclination;
   double ascending_node_longitude;
