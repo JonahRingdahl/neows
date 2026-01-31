@@ -12,8 +12,10 @@ public:
   void SetLink(nlohmann::json &link_json);
   void SetPages(nlohmann::json &pages_json);
 
-  std::vector<std::shared_ptr<Neo>> GetNeoCollection();
-  std::unique_ptr<Neo> &GetSelectedNeo();
+  std::vector<std::unique_ptr<Neo>> GetNeoCollection();
+  std::optional<Neo &> GetSelectedNeo();
+
+  bool IsEmpty() { return this->neos.empty(); }
 
   void AddNeo(std::unique_ptr<Neo> neo);
 
@@ -39,5 +41,5 @@ private:
   int number_pages;
   int render_index = 0;
 
-  Model *asteroidModel;
+  std::unique_ptr<Model> asteroidModel;
 };

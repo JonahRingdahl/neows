@@ -1,4 +1,6 @@
-#include "nlohmann/json.hpp"
+#pragma once
+
+#include "nlohmann/json_fwd.hpp"
 
 #include <string>
 

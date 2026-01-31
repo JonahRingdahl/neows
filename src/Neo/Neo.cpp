@@ -1,6 +1,3 @@
-#include "Neo.hpp"
-#include "Diameter.hpp"
-#include "raylib.h"
 
 #include <cstdint>
 #include <limits>
@@ -10,6 +7,11 @@
 #include <string>
 #include <vector>
 
+#include <raylib.h>
+
+#include "Diameter.hpp"
+#include "Neo.hpp"
+
 void Neo::SetLink(nlohmann::json &link_json) {
   this->link = link_json.get<std::string>();
 }
@@ -17,12 +19,12 @@ void Neo::SetLink(nlohmann::json &link_json) {
 void Neo::SetID(nlohmann::json &id_json) {
   using integer = nlohmann::json::number_integer_t;
   auto ivalue = id_json.get<integer>();
-  if (!(ivalue < std::numeric_limits<int>::min() ||
-        ivalue > std::numeric_limits<int>::max())) {
-    this->id = id_json.get<int64_t>();
+  if (ivalue < std::numeric_limits<int>::min() ||
+      ivalue > std::numeric_limits<int>::max()) {
+    throw std::runtime_error("ID is out of range");
   }
 
-  throw std::runtime_error("ID is out of range");
+  this->id = id_json.get<int64_t>();
 }
 
 void Neo::SetNeoID(nlohmann::json &neo_id_json) {
@@ -59,7 +61,7 @@ void Neo::SetCloseApproach(std::vector<nlohmann::json> &close_approach_json) {
 }
 
 void Neo::SetIsSentryObject(nlohmann::json &is_sentry_object_json) {
-  this->is_sentry_oject = is_sentry_object_json.get<bool>();
+  this->is_sentry_object = is_sentry_object_json.get<bool>();
 }
 
 void Neo::SetRenderPosition(Vector3 position) { this->position = position; }
@@ -71,17 +73,14 @@ const std::string &Neo::GetName() { return name; }
 const std::string &Neo::GetLink() { return link; }
 float Neo::GetMagnitude() { return absolute_magnitude_h; }
 bool Neo::GetHazardous() { return is_potentially_hazardous_asteroid; }
-const std::unique_ptr<Diameter> &Neo::GetDiameter() {
-  return this->diameter;
-}
-bool Neo::GetIsSentryObject() { return this->is_sentry_oject; }
+const std::unique_ptr<Diameter> &Neo::GetDiameter() { return this->diameter; }
+bool Neo::GetIsSentryObject() { return this->is_sentry_object; }
 
 float Neo::GetRenderRadius() { return this->render_radius; }
 const Vector3 &Neo::GetRenderPosition() { return this->position; }
-
 
 std::vector<std::unique_ptr<CloseApproach>> &Neo::GetCloseApproach() {
   return this->close_approach;
 }
 
-void Neo::Draw(Model* model) { DrawModel(*model, this->position, 1, BROWN); }
+void Neo::Draw(Model *model) { DrawModel(*model, this->position, 1, BROWN); }

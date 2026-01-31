@@ -41,24 +41,3 @@ void CloseApproach::PrintCloseApproach() {
   std::cout << "Miss Distance (Miles):" << this->miss_dist_miles << '\n';
   std::cout << "Approach Date:" << this->epoch_date_close_approach << '\n';
 }
-
-std::string CloseApproach::GetApproachDate() {
-  return close_approach_date;
-}
-std::string CloseApproach::GetApproachDateFull() {
-  return close_approach_date_full;
-}
-unsigned long long CloseApproach::GetEpochDate() {
-  return epoch_date_close_approach;
-}
-std::string CloseApproach::GetRelativeKPS() { return relative_vel_kps; }
-std::string CloseApproach::GetRelativeKPH() { return relative_vel_kph; }
-std::string CloseApproach::GetRelativeMPH() { return relative_vel_mph; }
-
-std::string CloseApproach::GetMissAstro() {
-  return miss_dist_astronomical;
-}
-std::string CloseApproach::GetMissLunar() { return miss_dist_lunar; }
-std::string CloseApproach::GetMissKilo() { return miss_dist_kilometer; }
-std::string CloseApproach::GetMissMiles() { return miss_dist_miles; }
-std::string CloseApproach::GetOrbitBody() { return orbiting_body; }

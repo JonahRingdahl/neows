@@ -2,16 +2,16 @@
 #include "Neo/NeosCurrier.hpp"
 
 #include <fstream>
+#include <iostream>
 #include <memory>
 #include <raylib.h>
-#include <iostream>
 
 #include <httplib.h>
 #include <nlohmann/json.hpp>
 #include <string>
 
 void UpdateGame(Camera3D &camera, NeosCurrier &currier, Menu menu,
-                    float startTime);
+                float startTime);
 void DrawGame(Camera3D camera, NeosCurrier &currier, Menu menu,
               Vector3 earthPosition);
 void get_api_keys(std::string &k, std::string &v);
@@ -45,6 +45,11 @@ int main(void) {
   // Some bug with loading the asteroid
   Model asteroidModel = LoadModel("assets/Asteroid.glb");
 
+  if (asteroidModel.meshCount == 0) {
+    std::cerr << "Failed to load asteroid model!" << std::endl;
+    return -1;
+  }
+
   std::cout << "load neos" << "\n";
   NeosCurrier currier(&asteroidModel);
 
@@ -72,7 +77,7 @@ int main(void) {
 }
 
 void UpdateGame(Camera3D &camera, NeosCurrier &currier, Menu menu,
-                    float startTime) {
+                float startTime) {
   // Update Cycle
   UpdateCamera(&camera, CAMERA_FREE);
   currier.UpdateNeosPosition(GetTime(), startTime, 0.5);
@@ -103,7 +108,14 @@ void DrawGame(Camera3D camera, NeosCurrier &currier, Menu menu,
   EndMode3D();
 
   // Insert Menu Draw
-  menu.DisplayMenu(currier.GetSelectedNeo());
+  if (currier.IsEmpty()) {
+    EndDrawing();
+    return;
+  }
+
+  if (currier.GetSelectedNeo().has_value()) {
+    menu.DisplayMenu(currier.GetSelectedNeo().value());
+  }
 
   EndDrawing();
 }

@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include <httplib.h>
@@ -10,22 +11,22 @@
 #include <raylib.h>
 
 NeosCurrier::NeosCurrier(Model *asteroidModel) {
-  this->asteroidModel = asteroidModel;
+  this->asteroidModel.reset(asteroidModel);
 }
 
-std::unique_ptr<Neo> &NeosCurrier::GetSelectedNeo() {
-  return this->neos[this->render_index];
+std::optional<Neo &> NeosCurrier::GetSelectedNeo() {
+  return *this->neos.at(this->render_index);
 }
 void NeosCurrier::DrawNeos() {
-  for (const auto &neo : this->neos)
-    neo->Draw(this->asteroidModel);
+  for (auto &neo : this->neos)
+    neo->Draw(this->asteroidModel.get());
 }
 
 void NeosCurrier::DrawSelectedNeoPointer() {
   // Triangle above the position of the selected neo
   Vector3 selected_neo_position =
-      this->neos[this->render_index]->GetRenderPosition();
-  Vector3 arrow_position = 
+      this->neos.at(this->render_index)->GetRenderPosition();
+  Vector3 arrow_position =
       (Vector3){selected_neo_position.x, selected_neo_position.y + 10,
                 selected_neo_position.z};
   Vector3 arrow_bottom =
@@ -50,7 +51,7 @@ void NeosCurrier::UpdateNeosPosition(double time, float startTime,
         z * cos(angles[i] + angleRadians * time);
     float y = sin(time) * (z + x) / 2;
 
-    this->neos[i]->SetRenderPosition((Vector3){x, y, z});
+    this->neos.at(i)->SetRenderPosition((Vector3){x, y, z});
   }
 }
 
@@ -73,15 +74,25 @@ std::vector<double> NeosCurrier::CalculateLineSpace(double start, double end,
 }
 
 void NeosCurrier::AddNeo(std::unique_ptr<Neo> neo) {
-	this->neos.emplace_back(std::move(neo));
+  this->neos.push_back(std::move(neo));
 }
 
-void NeosCurrier::DeleteAllNeos() {
-  this->neos.clear();
-}
+void NeosCurrier::DeleteAllNeos() { this->neos.clear(); }
 
 void NeosCurrier::DeleteSelectedNeo() {
-	this->neos.erase(this->neos.begin() + this->render_index);
+  if (this->neos.empty())
+    return;
+
+  auto eraser = this->neos.begin() + this->render_index;
+  this->neos.erase(eraser);
+
+  if (this->neos.empty()) {
+    this->render_index = 0;
+  }
+
+  if (this->render_index >= static_cast<int>(this->neos.size())) {
+    this->render_index = this->neos.size() - 1;
+  }
 }
 
 void NeosCurrier::ChangeFocusAsteroid() {

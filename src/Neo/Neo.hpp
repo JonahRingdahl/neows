@@ -39,7 +39,7 @@ public:
   bool GetIsSentryObject();
   std::vector<std::unique_ptr<CloseApproach>> &GetCloseApproach();
 
-  void Draw(Model* model);
+  void Draw(Model *model);
 
 private:
   Vector3 position;
@@ -54,5 +54,5 @@ private:
   std::unique_ptr<Diameter> diameter;
   bool is_potentially_hazardous_asteroid;
   std::vector<std::unique_ptr<CloseApproach>> close_approach;
-  bool is_sentry_oject;
+  bool is_sentry_object;
 };

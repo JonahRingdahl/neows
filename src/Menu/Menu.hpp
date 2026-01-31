@@ -1,10 +1,13 @@
-#include "../Neo/Neo.hpp"
+#pragma once
 
 #include <memory>
-#include <raylib.h>
 #include <string>
 
-enum MenuState { Minimal = 0, Full = 1 };
+#include <raylib.h>
+
+#include "../Neo/Neo.hpp"
+
+enum MenuState { MINIMAL = 0, FULL = 1 };
 
 class Menu {
 private:
@@ -23,11 +26,11 @@ public:
 
   std::string GetTextBuffer();
 
-  const void DisplayMinimalMenu(const std::unique_ptr<Neo>& currentNeo);
-  void DisplayFullMenu(std::unique_ptr<Neo>& currentNeo);
+  const void DisplayMinimalMenu(const Neo &currentNeo);
+  void DisplayFullMenu(const Neo &currentNeo);
 
-  void DisplayMenu(std::unique_ptr<Neo>& currentNeo);
-  const void DisplayAsteroidInfo(const std::unique_ptr<Neo>& currentNeo);
+  void DisplayMenu(const Neo &currentNeo);
+  const void DisplayAsteroidInfo(Neo &currentNeo);
   void ClickIntoApiTextBox(Vector2 mousePos);
   void ApiButton(Vector2 mousePos);
 };
