@@ -8,21 +8,21 @@ FetchContent_Declare(
   GIT_TAG v3.11.3)
 
 FetchContent_Declare(
-  cpp-httplib
-  GIT_REPOSITORY https://github.com/yhirose/cpp-httplib.git
-  GIT_TAG v0.18.1)
+  curl
+  GIT_REPOSITORY https://github.com/curl/curl.git
+  GIT_TAG curl-8_19_0)
 
 FetchContent_Declare(
   raylib
   GIT_REPOSITORY https://github.com/raysan5/raylib.git
-  GIT_TAG master)
+  GIT_TAG 5.5)
 
 FetchContent_Declare(
   catch2
   GIT_REPOSITORY https://github.com/catchorg/Catch2.git
   GIT_TAG v3.7.1)
 
-FetchContent_MakeAvailable(catch2 raylib cpp-httplib json)
+FetchContent_MakeAvailable(catch2 raylib curl json)
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -31,23 +31,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 include_directories(src)
 
-add_executable(Main src/main.cpp 
-		    src/Neo/Neo.cpp src/Neo/Diameter.cpp
-                    src/Neo/CloseApproach.cpp src/Neo/NeosCurrier.cpp
-                    src/Menu/Menu.cpp
-		    src/utils/NasaAPI/api.cpp)
+add_executable(Main src/main.cpp )
 
-add_executable(Tests tests/test.cpp 
-	  	    src/Neo/Neo.cpp src/Neo/Diameter.cpp
-                    src/Neo/CloseApproach.cpp src/Neo/NeosCurrier.cpp
-                    src/Menu/Menu.cpp
-		    src/utils/NasaAPI/api.cpp)
+add_executable(Tests tests/test.cpp src/main.cpp)
 
 
 
-target_link_libraries(Main PUBLIC raylib nlohmann_json httplib)
+target_link_libraries(Main PUBLIC raylib nlohmann_json CURL::libcurl)
 target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain raylib nlohmann_json
-                                    httplib)
+  CURL::libcurl)
 
 include(CTest)
 include(Catch)

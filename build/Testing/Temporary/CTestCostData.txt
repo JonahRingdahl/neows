@@ -1,4 +1,0 @@
-Santiy Check 1 0.00485962
-Asteroid Position 0 0
----
-Asteroid Position
