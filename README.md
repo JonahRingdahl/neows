@@ -1,17 +1,19 @@
-# neows
-I have refactored the CMakeLists.txt that it will work correctly using FetchContent and Cmake
+This is a program to render Near earth objects from Nasa's OpenApi.
 
-To build this project use cmake.
-To build on commandline as I do, use the command:
-      cmake CMakeLists.txt && make
+To build run:
 
-Then to run:
-      ./Main
+cmake CMakeLists.txt && make
+./Main
 
-Requires X11 currently for raylib
+This requires the dependecies lists below. Cmake will fetch them. 
+Raylib requires its own dependencies.
 
 Packages utilized in this projects are enumerated in the CMakeLists.txt file as well as hereafter:
-Raylib -- https://github.com/raysan5/raylib
-httplib-cpp -- https://github.com/yhirose/cpp-httplib
-json -- https://github.com/nlohmann/json
-catch2 -- https://github.com/catchorg/Catch2
+<br />
+Raylib -- https://github.com/raysan5/raylib.git
+<br />
+curl -- https://github.com/curl/curl.git
+<br />
+json -- https://github.com/nlohmann/json.git
+<br />
+catch2 -- https://github.com/catchorg/Catch2.git
