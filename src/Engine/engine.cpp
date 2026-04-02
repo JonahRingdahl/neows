@@ -40,7 +40,7 @@ void Engine::updateNeoPosition(double time, float start_time,
                                double angle_radians) {
   std::vector<double> angles;
   angles.reserve(this->neos.size());
-  LineSpacing(angles, 0, 2 * PI);
+  lineSpacing(angles, 0, 2 * PI);
 }
 
 void Engine::lineSpacing(std::vector<double> &angles, double start,
