@@ -9,8 +9,8 @@ public:
   NeoClient(const std::string &apiKey);
   ~NeoClient();
 
-  std::string GetFeed(const std::string &startDate, const std::string &endDate);
-  std::string GetNeo(const std::string &asteroidId);
+  std::string GetFeed(const std::string &start_date, const std::string &end_date);
+  std::string GetNeo(const std::string &asteroid_id);
 
 private:
   std::string apiKey_;

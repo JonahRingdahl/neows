@@ -16,7 +16,7 @@ public:
   void Run();
 
 private:
-  void updateNeoPosition(double time, float startTime, double angleRadians);
+  void updateNeoPosition(double time, float start_time, double angle_radians);
   void lineSpacing(std::vector<double> &angles, double start, double end);
   void update();
   void draw();

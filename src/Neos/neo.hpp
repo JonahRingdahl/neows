@@ -9,22 +9,22 @@
 namespace neows {
 
 struct EstimatedDiameter {
-  double minKilometers;
-  double maxKilometers;
-  double minMeters;
-  double maxMeters;
-  double minMiles;
-  double maxMiles;
-  double minFeet;
-  double maxFeet;
+  double min_kilometers;
+  double max_kilometers;
+  double min_meters;
+  double max_meters;
+  double min_miles;
+  double max_miles;
+  double min_feet;
+  double max_feet;
 
   static EstimatedDiameter fromJson(const nlohmann::json &j);
 };
 
 struct RelativeVelocity {
-  double kilometersPerSecond;
-  double kilometersPerHour;
-  double milesPerHour;
+  double kilometers_per_second;
+  double kilometers_per_hour;
+  double miles_per_hour;
 
   static RelativeVelocity fromJson(const nlohmann::json &j);
 };
@@ -39,11 +39,11 @@ struct MissDistance {
 };
 
 struct CloseApproachData {
-  std::string closeApproachDate;
-  int64_t epochDateCloseApproach;
-  RelativeVelocity relativeVelocity;
-  MissDistance missDistance;
-  std::string orbitingBody;
+  std::string close_approach_date;
+  int64_t epoch_date_close_approach;
+  RelativeVelocity relative_velocity;
+  MissDistance miss_distance;
+  std::string orbiting_body;
 
   static CloseApproachData fromJson(const nlohmann::json &j);
 };
@@ -52,36 +52,36 @@ class Neo {
 public:
   explicit Neo(const nlohmann::json &json);
 
-  std::string Id() const { return m_id; }
-  std::string NeoReferenceId() const { return m_neoReferenceId; }
-  std::string Name() const { return m_name; }
-  std::string NasaJplUrl() const { return m_nasaJplUrl; }
-  double AbsoluteMagnitude() const { return m_absoluteMagnitude; }
+  std::string Id() const { return id; }
+  std::string NeoReferenceId() const { return neo_reference_id; }
+  std::string Name() const { return name; }
+  std::string NasaJplUrl() const { return nasa_jpl_url; }
+  double AbsoluteMagnitude() const { return absolute_magnitude; }
   const EstimatedDiameter &EstimatedDiameter() const {
-    return m_estimatedDiameter;
+    return estimated_diameter;
   }
-  bool IsPotentiallyHazardous() const { return m_isPotentiallyHazardous; }
-  bool IsSentryObject() const { return m_isSentryObject; }
+  bool IsPotentiallyHazardous() const { return is_potentially_hazardous; }
+  bool IsSentryObject() const { return is_sentry_object; }
   const std::vector<CloseApproachData> &CloseApproachData() const {
-    return m_closeApproachData;
+    return close_approach_data;
   }
 
-  std::string SelfLink() const { return m_selfLink; }
+  std::string SelfLink() const { return self_link; }
 
   const Vector3 GetNeoPosition() const { return position; }
   void UpdateNeoPosition(Vector3 new_position) { position = new_position; }
 
 private:
-  std::string m_id;
-  std::string m_neoReferenceId;
-  std::string m_name;
-  std::string m_nasaJplUrl;
-  double m_absoluteMagnitude = 0.0;
-  EstimatedDiameter m_estimatedDiameter;
-  bool m_isPotentiallyHazardous = false;
-  bool m_isSentryObject = false;
-  std::vector<CloseApproachData> m_closeApproachData;
-  std::string m_selfLink;
+  std::string id;
+  std::string neo_reference_id;
+  std::string name;
+  std::string nasa_jpl_url;
+  double absolute_magnitude = 0.0;
+  EstimatedDiameter estimated_diameter;
+  bool is_potentially_hazardous = false;
+  bool is_sentry_object = false;
+  std::vector<CloseApproachData> close_approach_data;
+  std::string self_link;
 
   Vector3 position;
 };
