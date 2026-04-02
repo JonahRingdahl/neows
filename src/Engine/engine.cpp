@@ -77,31 +77,20 @@ void Engine::deleteSelectedNeo() {
   }
 
   if (this->selected_neo_index >= static_cast<int>(this->neos.size())) {
-    this->selected_neo_index = this->neos.size() - 1;
+    this->selected_neo_index -= 1;
   }
 }
 
 void Engine::changeSelectedNeo() {
-  if (this->neos.size() == 0)
-    return;
-  if (IsKeyPressed(KEY_J)) {
-    if (this->selected_neo_index == 0) {
-      this->selected_neo_index = this->neos.size() - 1;
-    } else {
-      this->selected_neo_index -= 1;
-    }
-  }
-  if (IsKeyPressed(KEY_K)) {
-    if (this->selected_neo_index == (int)this->neos.size() - 1) {
-      this->selected_neo_index = 0;
-    } else {
-      this->selected_neo_index += 1;
-    }
-  }
-  // if (IsKeyPressed(KEY_F)) {
-  //   std::cout << "Try Deleting" << '\n';
-  //   DeleteAllNeos();
-  // }
+  if (this->neos.size() == 0) return;
+
+  if (IsKeyPressed(KEY_J))
+    this->selected_neo_index = this->selected_neo_index - 1 % this->neos.size();
+  
+  if (IsKeyPressed(KEY_K)) 
+    this->selected_neo_index = this->selected_neo_index + 1 % this->neos.size();
+
+  if (IsKeyPressed(KEY_F)) DeleteAllNeos();
 }
 
 void Engine::drawSelection() {
