@@ -52,21 +52,21 @@ class Neo {
 public:
   explicit Neo(const nlohmann::json &json);
 
-  std::string id() const { return m_id; }
-  std::string neoReferenceId() const { return m_neoReferenceId; }
-  std::string name() const { return m_name; }
-  std::string nasaJplUrl() const { return m_nasaJplUrl; }
-  double absoluteMagnitude() const { return m_absoluteMagnitude; }
-  const EstimatedDiameter &estimatedDiameter() const {
+  std::string Id() const { return m_id; }
+  std::string NeoReferenceId() const { return m_neoReferenceId; }
+  std::string Name() const { return m_name; }
+  std::string NasaJplUrl() const { return m_nasaJplUrl; }
+  double AbsoluteMagnitude() const { return m_absoluteMagnitude; }
+  const EstimatedDiameter &EstimatedDiameter() const {
     return m_estimatedDiameter;
   }
-  bool isPotentiallyHazardous() const { return m_isPotentiallyHazardous; }
-  bool isSentryObject() const { return m_isSentryObject; }
-  const std::vector<CloseApproachData> &closeApproachData() const {
+  bool IsPotentiallyHazardous() const { return m_isPotentiallyHazardous; }
+  bool IsSentryObject() const { return m_isSentryObject; }
+  const std::vector<CloseApproachData> &CloseApproachData() const {
     return m_closeApproachData;
   }
 
-  std::string selfLink() const { return m_selfLink; }
+  std::string SelfLink() const { return m_selfLink; }
 
   const Vector3 GetNeoPosition() const { return position; }
   void UpdateNeoPosition(Vector3 new_position) { position = new_position; }

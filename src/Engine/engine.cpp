@@ -21,9 +21,9 @@ Engine::Engine() {
 
 Engine::~Engine() {}
 
-void Engine::Update() {}
+void Engine::update() {}
 
-void Engine::Draw() {
+void Engine::draw() {
   BeginDrawing();
 
   EndDrawing();
@@ -31,19 +31,19 @@ void Engine::Draw() {
 
 void Engine::Run() {
   while (!WindowShouldClose()) {
-    Update();
-    Draw();
+    update();
+    draw();
   }
 }
 
-void Engine::UpdateNeoPosition(double time, float startTime,
+void Engine::updateNeoPosition(double time, float startTime,
                                double angleRadians) {
   std::vector<double> angles;
   angles.reserve(this->neos.size());
   LineSpacing(angles, 0, 2 * PI);
 }
 
-void Engine::LineSpacing(std::vector<double> &angles, double start,
+void Engine::lineSpacing(std::vector<double> &angles, double start,
                          double end) {
 
   auto size = angles.size();
@@ -63,8 +63,8 @@ void Engine::LineSpacing(std::vector<double> &angles, double start,
   }
 }
 
-void Engine::AddNeo() {}
-void Engine::DeleteSelectedNeo() {
+void Engine::addNeo() {}
+void Engine::deleteSelectedNeo() {
   if (this->neos.size() == 0)
     return;
 
@@ -81,7 +81,7 @@ void Engine::DeleteSelectedNeo() {
   }
 }
 
-void Engine::ChangeSelectedNeo() {
+void Engine::changeSelectedNeo() {
   if (this->neos.size() == 0)
     return;
   if (IsKeyPressed(KEY_J)) {
@@ -104,7 +104,7 @@ void Engine::ChangeSelectedNeo() {
   // }
 }
 
-void Engine::DrawSelection() {
+void Engine::drawSelection() {
   Vector3 selected_neo_position =
       this->neos.at(this->selected_neo_index)->GetNeoPosition();
 

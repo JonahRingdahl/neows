@@ -16,14 +16,14 @@ public:
   void Run();
 
 private:
-  void UpdateNeoPosition(double time, float startTime, double angleRadians);
-  void LineSpacing(std::vector<double> &angles, double start, double end);
-  void Update();
-  void Draw();
-  void DrawSelection();
-  void AddNeo();
-  void ChangeSelectedNeo();
-  void DeleteSelectedNeo();
+  void updateNeoPosition(double time, float startTime, double angleRadians);
+  void lineSpacing(std::vector<double> &angles, double start, double end);
+  void update();
+  void draw();
+  void drawSelection();
+  void addNeo();
+  void changeSelectedNeo();
+  void deleteSelectedNeo();
 
   Camera3D camera;
   std::vector<std::unique_ptr<neows::Neo>> neos;
