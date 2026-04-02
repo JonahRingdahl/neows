@@ -44,6 +44,9 @@ CloseApproachData CloseApproachData::fromJson(const nlohmann::json &j) {
 }
 
 Neo::Neo(const nlohmann::json &json) {
+  if (json.contains("Err"))
+    return;
+
   if (json.contains("id")) {
     m_id = json["id"].get<std::string>();
   }

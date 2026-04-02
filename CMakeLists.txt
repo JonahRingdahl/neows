@@ -31,7 +31,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 include_directories(src)
 
-add_executable(Main src/main.cpp )
+add_executable(Main src/main.cpp 
+  src/Engine/engine.cpp
+  src/NasaClient/client.cpp
+  src/Neos/neo.cpp
+)
 
 add_executable(Tests tests/test.cpp src/main.cpp)
 

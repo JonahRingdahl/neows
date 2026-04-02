@@ -2,6 +2,7 @@
 
 #include <nlohmann/json.hpp>
 #include <optional>
+#include <raylib.h>
 #include <string>
 #include <vector>
 
@@ -67,6 +68,9 @@ public:
 
   std::string selfLink() const { return m_selfLink; }
 
+  const Vector3 GetNeoPosition() const { return position; }
+  void UpdateNeoPosition(Vector3 new_position) { position = new_position; }
+
 private:
   std::string m_id;
   std::string m_neoReferenceId;
@@ -78,6 +82,8 @@ private:
   bool m_isSentryObject = false;
   std::vector<CloseApproachData> m_closeApproachData;
   std::string m_selfLink;
+
+  Vector3 position;
 };
 
 } // namespace neows

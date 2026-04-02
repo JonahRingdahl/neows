@@ -1,6 +1,6 @@
 #include "Engine/engine.hpp"
 
-int main(int argc, char *argv[]) {
+int main(void) {
   Engine engine;
 
   return 0;
