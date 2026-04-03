@@ -10,8 +10,8 @@ EstimatedDiameter EstimatedDiameter::fromJson(const nlohmann::json &j) {
   d.max_meters = j["meters"]["estimated_diameter_max"].get<double>();
   d.min_miles = j["miles"]["estimated_diameter_min"].get<double>();
   d.max_miles = j["miles"]["estimated_diameter_max"].get<double>();
-  d.min_meet = j["feet"]["estimated_diameter_min"].get<double>();
-  d.max_meet = j["feet"]["estimated_diameter_max"].get<double>();
+  d.min_feet = j["feet"]["estimated_diameter_min"].get<double>();
+  d.max_feet = j["feet"]["estimated_diameter_max"].get<double>();
   return d;
 }
 
@@ -19,7 +19,8 @@ RelativeVelocity RelativeVelocity::fromJson(const nlohmann::json &j) {
   RelativeVelocity v;
   v.kilometers_per_second =
       std::stod(j["kilometers_per_second"].get<std::string>());
-  v.kilometers_per_hour = std::stod(j["kilometers_per_hour"].get<std::string>());
+  v.kilometers_per_hour =
+      std::stod(j["kilometers_per_hour"].get<std::string>());
   v.miles_per_hour = std::stod(j["miles_per_hour"].get<std::string>());
   return v;
 }

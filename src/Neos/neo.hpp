@@ -1,8 +1,7 @@
 #pragma once
 
 #include <nlohmann/json.hpp>
-#include <optional>
-#include <raylib.h>
+#include <raymath.h>
 #include <string>
 #include <vector>
 
@@ -52,17 +51,15 @@ class Neo {
 public:
   explicit Neo(const nlohmann::json &json);
 
-  std::string Id() const { return id; }
-  std::string NeoReferenceId() const { return neo_reference_id; }
-  std::string Name() const { return name; }
-  std::string NasaJplUrl() const { return nasa_jpl_url; }
-  double AbsoluteMagnitude() const { return absolute_magnitude; }
-  const EstimatedDiameter &EstimatedDiameter() const {
-    return estimated_diameter;
-  }
-  bool IsPotentiallyHazardous() const { return is_potentially_hazardous; }
-  bool IsSentryObject() const { return is_sentry_object; }
-  const std::vector<CloseApproachData> &CloseApproachData() const {
+  std::string Id() { return id; }
+  std::string NeoReferenceId() { return neo_reference_id; }
+  std::string Name() { return name; }
+  std::string NasaJplUrl() { return nasa_jpl_url; }
+  double AbsoluteMagnitude() { return absolute_magnitude; }
+  EstimatedDiameter &GetEstimatedDiameter() { return estimated_diameter; }
+  bool IsPotentiallyHazardous() { return is_potentially_hazardous; }
+  bool IsSentryObject() { return is_sentry_object; }
+  std::vector<CloseApproachData> &GetCloseApproachData() {
     return close_approach_data;
   }
 

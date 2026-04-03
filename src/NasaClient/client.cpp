@@ -7,7 +7,8 @@ std::string NeoClient::request(const std::string &url) {
   std::string response;
 
   curl_easy_setopt(this->curl_, CURLOPT_URL, url.c_str());
-  curl_easy_setopt(this->curl_, CURLOPT_WRITEFUNCTION, this->writeCallback);
+  curl_easy_setopt(this->curl_, CURLOPT_WRITEFUNCTION,
+                   NeoClient::writeCallback);
   curl_easy_setopt(this->curl_, CURLOPT_WRITEDATA, &response);
   curl_easy_setopt(this->curl_, CURLOPT_FOLLOWLOCATION, 1L);
 
@@ -17,4 +18,9 @@ std::string NeoClient::request(const std::string &url) {
   }
 
   return response;
+}
+
+size_t NeoClient::writeCallback(void *contents, size_t size, size_t nmemb,
+                                std::string *buffer) {
+  return 0;
 }

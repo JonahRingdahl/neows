@@ -2,7 +2,6 @@
 #include "../Neos/neo.hpp"
 
 #include <memory>
-#include <ranges>
 #include <raylib.h>
 #include <vector>
 
@@ -46,7 +45,7 @@ void Engine::updateNeoPosition(double time, float start_time,
 void Engine::lineSpacing(std::vector<double> &angles, double start,
                          double end) {
 
-  auto size = angles.size();
+  int size = angles.size();
 
   if (size == 0) {
     return;
@@ -72,7 +71,7 @@ void Engine::deleteSelectedNeo() {
   this->neos.erase(eraser);
 
   if (this->neos.size() == 0) {
-    this->selected_neo_index = 0;
+    this->selected_neo_index = -1;
     return;
   }
 
@@ -82,18 +81,28 @@ void Engine::deleteSelectedNeo() {
 }
 
 void Engine::changeSelectedNeo() {
-  if (this->neos.size() == 0) return;
+  if (this->neos.size() == 0)
+    return;
 
   if (IsKeyPressed(KEY_J))
     this->selected_neo_index = this->selected_neo_index - 1 % this->neos.size();
-  
-  if (IsKeyPressed(KEY_K)) 
+
+  if (IsKeyPressed(KEY_K))
     this->selected_neo_index = this->selected_neo_index + 1 % this->neos.size();
 
-  if (IsKeyPressed(KEY_F)) DeleteAllNeos();
+  if (IsKeyPressed(KEY_F))
+    deleteAllNeos();
+}
+
+void Engine::deleteAllNeos() {
+  this->selected_neo_index = -1;
+  this->neos.clear();
 }
 
 void Engine::drawSelection() {
+  if (this->selected_neo_index < 0)
+    return;
+
   Vector3 selected_neo_position =
       this->neos.at(this->selected_neo_index)->GetNeoPosition();
 

@@ -24,6 +24,7 @@ private:
   void addNeo();
   void changeSelectedNeo();
   void deleteSelectedNeo();
+  void deleteAllNeos();
 
   Camera3D camera;
   std::vector<std::unique_ptr<neows::Neo>> neos;
