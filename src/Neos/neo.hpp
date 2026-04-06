@@ -1,6 +1,7 @@
 #pragma once
 
 #include <nlohmann/json.hpp>
+#include <raylib.h>
 #include <raymath.h>
 #include <string>
 #include <vector>
@@ -67,6 +68,9 @@ public:
 
   const Vector3 GetNeoPosition() const { return position; }
   void UpdateNeoPosition(Vector3 new_position) { position = new_position; }
+  void DrawNeo(Model &asteroid_model) {
+    DrawModel(asteroid_model, this->position, this->scale, WHITE);
+  }
 
 private:
   std::string id;
@@ -79,6 +83,7 @@ private:
   bool is_sentry_object = false;
   std::vector<CloseApproachData> close_approach_data;
   std::string self_link;
+  float scale = 1;
 
   Vector3 position;
 };

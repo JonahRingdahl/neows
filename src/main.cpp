@@ -1,7 +1,10 @@
 #include "Engine/engine.hpp"
+#include <raylib.h>
 
 int main(void) {
-  Engine engine;
+  Model model = LoadModel("../assets/Asteroid.glb");
+  Engine engine(model);
+  UnloadModel(model);
 
   return 0;
 }

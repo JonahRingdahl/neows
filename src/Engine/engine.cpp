@@ -5,13 +5,14 @@
 #include <raylib.h>
 #include <vector>
 
-Engine::Engine() {
+Engine::Engine(Model aster_model) {
   this->camera = {0};
   this->camera.position = {0.0f, 10.0f, 10.0f};
   this->camera.target = {0.0f, 0.0f, 0.0f};
   this->camera.up = {0.0f, 1.0f, 0.0f};
   this->camera.fovy = 45.0f;
   this->camera.projection = CAMERA_PERSPECTIVE;
+  this->asteroid_model = aster_model;
 
   for (int i = 0; i < 10; i++) {
     this->neos.emplace_back(std::make_unique<neows::Neo>("Err"));
@@ -113,4 +114,10 @@ void Engine::drawSelection() {
       (Vector3){arrow_position.x, arrow_position.y - 3, arrow_position.z};
 
   DrawCylinderEx(arrow_bottom, arrow_position, 0.0f, 2.0, 100, RED);
+}
+
+void Engine::drawNeos() {
+  for (auto &neo : this->neos) {
+    neo->DrawNeo(this->asteroid_model);
+  }
 }

@@ -9,7 +9,7 @@
 
 class Engine {
 public:
-  Engine();
+  Engine(Model aster_model);
   ~Engine();
 
   void PullNeows();
@@ -25,9 +25,11 @@ private:
   void changeSelectedNeo();
   void deleteSelectedNeo();
   void deleteAllNeos();
+  void drawNeos();
 
   Camera3D camera;
   std::vector<std::unique_ptr<neows::Neo>> neos;
   std::string base_url = "https://api.nasa.gov/neo/rest/v1";
   int32_t selected_neo_index = 0;
+  Model asteroid_model;
 };
