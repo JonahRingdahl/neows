@@ -37,7 +37,12 @@ add_executable(Main src/main.cpp
   src/Neos/neo.cpp
 )
 
-add_executable(Tests tests/test.cpp src/main.cpp)
+add_executable(Tests tests/test.cpp 
+  src/main.cpp
+  src/Engine/engine.cpp
+  src/NasaClient/client.cpp
+  src/Neos/neo.cpp
+)
 
 
 

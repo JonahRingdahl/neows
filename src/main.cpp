@@ -2,9 +2,7 @@
 #include <raylib.h>
 
 int main(void) {
-  Model model = LoadModel("../assets/Asteroid.glb");
-  Engine engine(model);
-  UnloadModel(model);
+  Engine engine("../assets/Asteroid.glb");
 
   return 0;
 }

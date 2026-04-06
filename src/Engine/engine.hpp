@@ -9,7 +9,7 @@
 
 class Engine {
 public:
-  Engine(Model aster_model);
+  Engine(std::string model_path);
   ~Engine();
 
   void PullNeows();

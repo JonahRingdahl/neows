@@ -3,23 +3,24 @@
 
 #include <memory>
 #include <raylib.h>
+#include <string>
 #include <vector>
 
-Engine::Engine(Model aster_model) {
+Engine::Engine(std::string model_path) {
   this->camera = {0};
   this->camera.position = {0.0f, 10.0f, 10.0f};
   this->camera.target = {0.0f, 0.0f, 0.0f};
   this->camera.up = {0.0f, 1.0f, 0.0f};
   this->camera.fovy = 45.0f;
   this->camera.projection = CAMERA_PERSPECTIVE;
-  this->asteroid_model = aster_model;
+  this->asteroid_model = LoadModel(model_path.c_str());
 
   for (int i = 0; i < 10; i++) {
     this->neos.emplace_back(std::make_unique<neows::Neo>("Err"));
   }
 }
 
-Engine::~Engine() {}
+Engine::~Engine() { UnloadModel(this->asteroid_model); }
 
 void Engine::update() {}
 
