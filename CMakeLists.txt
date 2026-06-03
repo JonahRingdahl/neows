@@ -32,16 +32,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 include_directories(src)
 
 add_executable(Main src/main.cpp 
-		    src/Neo/Neo.cpp src/Neo/Diameter.cpp
-                    src/Neo/CloseApproach.cpp src/Neo/NeosCurrier.cpp
-                    src/Menu/Menu.cpp
-		    src/utils/NasaAPI/api.cpp)
+                src/Neo/Neo.cpp src/Neo/Diameter.cpp
+                src/Neo/CloseApproach.cpp src/Neo/NeosCurrier.cpp
+                src/Menu/Menu.cpp
+                src/utils/NasaAPI/api.cpp)
 
 add_executable(Tests tests/test.cpp 
-	  	    src/Neo/Neo.cpp src/Neo/Diameter.cpp
-                    src/Neo/CloseApproach.cpp src/Neo/NeosCurrier.cpp
-                    src/Menu/Menu.cpp
-		    src/utils/NasaAPI/api.cpp)
+                src/Neo/Neo.cpp src/Neo/Diameter.cpp
+                src/Neo/CloseApproach.cpp src/Neo/NeosCurrier.cpp
+                src/Menu/Menu.cpp
+                src/utils/NasaAPI/api.cpp)
 
 
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../Neo/Neo.hpp"
 
 #include <memory>
