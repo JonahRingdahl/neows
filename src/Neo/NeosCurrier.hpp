@@ -12,7 +12,6 @@ public:
   void SetLink(nlohmann::json &link_json);
   void SetPages(nlohmann::json &pages_json);
 
-  std::vector<std::shared_ptr<Neo>> GetNeoCollection();
   std::unique_ptr<Neo> &GetSelectedNeo();
 
   void AddNeo(std::unique_ptr<Neo> neo);
@@ -23,7 +22,7 @@ public:
   void DrawNeos();
   void DrawSelectedNeoPointer();
 
-  void UpdateNeosPosition(double time, float startTime, double angleRadians);
+  void UpdateNeosPosition(double time, double startTime, double angleRadians);
   std::vector<double> CalculateLineSpace(double start, double end, int num);
 
   void ChangeFocusAsteroid();
