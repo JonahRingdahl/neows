@@ -20,11 +20,13 @@ std::string Menu::GetTextBuffer() { return this->textInputBoxBuffer; }
 // go through all parts of the menu
 void Menu::DisplayMenu(std::unique_ptr<Neo> &currentNeo) {
 
-  if (IsKeyDown(KeyboardKey::KEY_F)) {
-    this->state = this->state ? MenuState::Full : MenuState::Minimal;
+  if (IsKeyPressed(KeyboardKey::KEY_M)) {
+    this->state = this->state == MenuState::Minimal ? MenuState::Full : MenuState::Minimal;
   }
 
-  if (this->state) {
+  if (currentNeo == nullptr) return;
+
+  if (this->state == MenuState::Minimal) {
     this->DisplayMinimalMenu(currentNeo);
   } else {
     this->DisplayFullMenu(currentNeo);
@@ -34,13 +36,13 @@ void Menu::DisplayMenu(std::unique_ptr<Neo> &currentNeo) {
 const void Menu::DisplayMinimalMenu(const std::unique_ptr<Neo> &n) {
 
   std::string kilo_max =
-      std::to_string(std::get<1>(n->GetDiameter()->GetKilo()));
+      std::to_string(std::get<1>(n->GetDiameter()->kilometer_min_max));
   std::string meter_max =
-      std::to_string(std::get<1>(n->GetDiameter()->GetMeter()));
+      std::to_string(std::get<1>(n->GetDiameter()->meter_min_max));
   std::string miles_max =
-      std::to_string(std::get<1>(n->GetDiameter()->GetMiles()));
+      std::to_string(std::get<1>(n->GetDiameter()->miles_min_max));
   std::string feet_max =
-      std::to_string(std::get<1>(n->GetDiameter()->GetFeet()));
+      std::to_string(std::get<1>(n->GetDiameter()->feet_min_max));
 
 	std::string id = std::to_string(n->GetID());
 	std::string ref_id = n->GetNeoID();
@@ -60,19 +62,19 @@ const void Menu::DisplayMinimalMenu(const std::unique_ptr<Neo> &n) {
 
 void Menu::DisplayFullMenu(std::unique_ptr<Neo> &neo) {
   std::string kilo_max =
-      std::to_string(std::get<1>(neo->GetDiameter()->GetKilo()));
+      std::to_string(std::get<1>(neo->GetDiameter()->kilometer_min_max));
   std::string meter_max =
-      std::to_string(std::get<1>(neo->GetDiameter()->GetMeter()));
+      std::to_string(std::get<1>(neo->GetDiameter()->meter_min_max));
   std::string miles_max =
-      std::to_string(std::get<1>(neo->GetDiameter()->GetMiles()));
+      std::to_string(std::get<1>(neo->GetDiameter()->miles_min_max));
   std::string feet_max =
-      std::to_string(std::get<1>(neo->GetDiameter()->GetFeet()));
+      std::to_string(std::get<1>(neo->GetDiameter()->feet_min_max));
 
   std::string neo_name = neo->GetName();
 
   std::string neo_hazard = std::to_string(neo->GetHazardous());
 
-  std::vector<std::unique_ptr<CloseApproach>> &neo_approach =
+  std::vector<std::unique_ptr<CloseApproach>> const &neo_approach =
       neo->GetCloseApproach();
 
 	std::string id = std::to_string(neo->GetID());

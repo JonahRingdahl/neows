@@ -9,25 +9,28 @@ class NeosCurrier {
 public:
   NeosCurrier(Model *asteroidModel);
 
-  void SetLink(nlohmann::json &link_json);
-  void SetPages(nlohmann::json &pages_json);
+  auto SetLink(nlohmann::json &link_json) -> void;
+  auto SetPages(nlohmann::json &pages_json) -> void;
 
-  std::unique_ptr<Neo> &GetSelectedNeo();
+  auto GetSelectedNeo() -> std::unique_ptr<Neo> &;
 
-  void AddNeo(std::unique_ptr<Neo> neo);
+  auto AddNeo(std::unique_ptr<Neo> neo) -> void;
 
-  void DeleteAllNeos();
-  void DeleteSelectedNeo();
+  auto DeleteAllNeos() -> void;
+  auto DeleteSelectedNeo() -> void;
 
-  void DrawNeos();
-  void DrawSelectedNeoPointer();
+  auto DrawNeos() -> void;
+  auto DrawSelectedNeoPointer() -> void;
 
-  void UpdateNeosPosition(double time, double startTime, double angleRadians);
-  std::vector<double> CalculateLineSpace(double start, double end, int num);
+  auto UpdateNeosPosition(double time, float startTime, double angleRadians)
+      -> void;
 
-  void ChangeFocusAsteroid();
+  auto ChangeFocusAsteroid() -> void;
 
 private:
+  auto CalculateLineSpace(double start, double end, int num)
+      -> std::vector<double>;
+
   std::string links;
   std::string pages;
   std::tuple<std::time_t, std::time_t> timespan;

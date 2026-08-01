@@ -12,12 +12,19 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/yhirose/cpp-httplib.git
   GIT_TAG v0.18.1)
 
+set(HTTPLIB_REQUIRE_OPENSSL ON CACHE BOOL "" FORCE)
+
 FetchContent_Declare(
   raylib
   GIT_REPOSITORY https://github.com/raysan5/raylib.git
   GIT_TAG master)
 
-FetchContent_MakeAvailable(raylib cpp-httplib json)
+FetchContent_Declare(
+  catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG v3.4.0)
+
+FetchContent_MakeAvailable(raylib cpp-httplib json catch2)
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -26,12 +33,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 include_directories(src)
 
-file(GLOB_RECURSE SOURCES "*.cpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+list(REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
 
-add_executable(Main ${SOURCES})
+add_executable(Main src/main.cpp ${SOURCES})
 
 add_executable(Tests ${SOURCES})
 
 target_link_libraries(Main PUBLIC raylib nlohmann_json httplib)
 target_link_libraries(Tests PRIVATE raylib nlohmann_json
-                                    httplib)
+                                    httplib Catch2::Catch2WithMain)

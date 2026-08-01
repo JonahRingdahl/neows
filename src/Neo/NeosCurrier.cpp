@@ -13,19 +13,29 @@ NeosCurrier::NeosCurrier(Model *asteroidModel) {
   this->asteroidModel = asteroidModel;
 }
 
-std::unique_ptr<Neo> &NeosCurrier::GetSelectedNeo() {
+auto NeosCurrier::GetSelectedNeo() -> std::unique_ptr<Neo> & {
+  if (this->neos.empty()) {
+    static std::unique_ptr<Neo> empty_neo = nullptr;
+    return empty_neo;
+  }
   return this->neos[this->render_index];
 }
-void NeosCurrier::DrawNeos() {
+
+auto NeosCurrier::DrawNeos() -> void {
   for (const auto &neo : this->neos)
     neo->Draw(this->asteroidModel);
 }
 
-void NeosCurrier::DrawSelectedNeoPointer() {
+auto NeosCurrier::SetLink(nlohmann::json &link_json) -> void {
+  this->links = link_json.dump();
+}
+
+auto NeosCurrier::DrawSelectedNeoPointer() -> void {
+  if (this->neos.empty()) return;
   // Triangle above the position of the selected neo
   Vector3 selected_neo_position =
       this->neos[this->render_index]->GetRenderPosition();
-  Vector3 arrow_position = 
+  Vector3 arrow_position =
       (Vector3){selected_neo_position.x, selected_neo_position.y + 10,
                 selected_neo_position.z};
   Vector3 arrow_bottom =
@@ -34,8 +44,12 @@ void NeosCurrier::DrawSelectedNeoPointer() {
   DrawCylinderEx(arrow_bottom, arrow_position, 0.0, 2.0, 100, RED);
 }
 
-void NeosCurrier::UpdateNeosPosition(double time, float startTime,
-                                     double angleRadians) {
+auto NeosCurrier::SetPages(nlohmann::json &pages_json) -> void {
+  this->pages = pages_json.dump();
+}
+
+auto NeosCurrier::UpdateNeosPosition(double time, float startTime,
+                                     double angleRadians) -> void {
   int numObjects = this->neos.size();
   std::vector<double> angles = CalculateLineSpace(0, 2 * PI, numObjects);
 
@@ -54,8 +68,8 @@ void NeosCurrier::UpdateNeosPosition(double time, float startTime,
   }
 }
 
-std::vector<double> NeosCurrier::CalculateLineSpace(double start, double end,
-                                                    int num) {
+auto NeosCurrier::CalculateLineSpace(double start, double end, int num)
+    -> std::vector<double> {
   std::vector<double> linespace;
   if (num == 0)
     return linespace;
@@ -72,19 +86,17 @@ std::vector<double> NeosCurrier::CalculateLineSpace(double start, double end,
   return linespace;
 }
 
-void NeosCurrier::AddNeo(std::unique_ptr<Neo> neo) {
-	this->neos.emplace_back(std::move(neo));
+auto NeosCurrier::AddNeo(std::unique_ptr<Neo> neo) -> void {
+  this->neos.emplace_back(std::move(neo));
 }
 
-void NeosCurrier::DeleteAllNeos() {
-  this->neos.clear();
+auto NeosCurrier::DeleteAllNeos() -> void { this->neos.clear(); }
+
+auto NeosCurrier::DeleteSelectedNeo() -> void {
+  this->neos.erase(this->neos.begin() + this->render_index);
 }
 
-void NeosCurrier::DeleteSelectedNeo() {
-	this->neos.erase(this->neos.begin() + this->render_index);
-}
-
-void NeosCurrier::ChangeFocusAsteroid() {
+auto NeosCurrier::ChangeFocusAsteroid() -> void {
   // Move up the list
   if (this->neos.size() == 0)
     return;
