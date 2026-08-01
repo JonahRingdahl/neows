@@ -57,7 +57,8 @@ auto Engine::Draw() -> void {
 
 // Public Methods
 
-Engine::Engine() : currier(&this->asteroid_model), menu(this->default_screen_dimentions) {
+Engine::Engine()
+    : currier(&this->asteroid_model), menu(this->default_screen_dimentions) {
 
   GetAPIKeys();
   InitWindow(this->default_screen_dimentions.x,
@@ -76,7 +77,7 @@ Engine::Engine() : currier(&this->asteroid_model), menu(this->default_screen_dim
   nlohmann::json api_data = api.GetAPI();
   if (!api_data.is_null()) {
     auto neos = api.CreateNeos(api_data);
-    for (auto& neo : neos) {
+    for (auto &neo : neos) {
       currier.AddNeo(std::make_unique<Neo>(std::move(neo)));
     }
   }
@@ -86,12 +87,13 @@ Engine::Engine() : currier(&this->asteroid_model), menu(this->default_screen_dim
 }
 
 Engine::~Engine() {
-  CloseWindow();
   UnloadModel(this->asteroid_model);
+  CloseWindow();
 }
 
 auto Engine::Run() -> void {
-  std::println("Starting game loop"); while (!WindowShouldClose()) {
+  std::println("Starting game loop");
+  while (!WindowShouldClose()) {
     Update(GetFrameTime());
     Draw();
   }

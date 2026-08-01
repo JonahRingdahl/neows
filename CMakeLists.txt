@@ -24,7 +24,14 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/catchorg/Catch2.git
   GIT_TAG v3.4.0)
 
-FetchContent_MakeAvailable(raylib cpp-httplib json catch2)
+set(CLAY_INCLUDE_ALL_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+FetchContent_Declare(
+  clay
+  GIT_REPOSITORY https://github.com/nicbarker/clay.git
+  GIT_TAG main)
+
+FetchContent_MakeAvailable(raylib cpp-httplib json catch2 clay)
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -32,6 +39,7 @@ set(GCC_COVERAGE_COMPILE_FLAGS "-g -Wall -Werror -fdiagnostics-color=always")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 include_directories(src)
+include_directories(${clay_SOURCE_DIR} ${clay_SOURCE_DIR}/renderers/raylib)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 list(REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")

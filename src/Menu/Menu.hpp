@@ -6,6 +6,8 @@
 #include <raylib.h>
 #include <string>
 
+#include "clay.h"
+
 enum MenuState { Minimal = 0, Full = 1 };
 
 class Menu {
@@ -14,6 +16,8 @@ private:
   std::string textInputBoxBuffer;
   Vector2 windowSize;
   MenuState state;
+  Clay_Arena clayMemory;
+  Font font;
 
 public:
   Menu(const Menu &) = default;
@@ -25,11 +29,11 @@ public:
 
   std::string GetTextBuffer();
 
-  const void DisplayMinimalMenu(const std::unique_ptr<Neo>& currentNeo);
+  void DisplayMinimalMenu(const std::unique_ptr<Neo>& currentNeo);
   void DisplayFullMenu(std::unique_ptr<Neo>& currentNeo);
 
   void DisplayMenu(std::unique_ptr<Neo>& currentNeo);
-  const void DisplayAsteroidInfo(const std::unique_ptr<Neo>& currentNeo);
+  void DisplayAsteroidInfo(const std::unique_ptr<Neo>& currentNeo);
   void ClickIntoApiTextBox(Vector2 mousePos);
   void ApiButton(Vector2 mousePos);
 };
